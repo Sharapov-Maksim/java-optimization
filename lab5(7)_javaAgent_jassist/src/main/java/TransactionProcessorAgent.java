@@ -11,8 +11,18 @@ import javassist.bytecode.ClassFile;
 import javassist.bytecode.FieldInfo;
 
 public class TransactionProcessorAgent {
-    public static void premain(String agentArgument, Instrumentation instrumentation) throws NotFoundException {
+    public static void premain(String agentArgument, Instrumentation instrumentation) throws NotFoundException, ClassNotFoundException {
         System.out.println("Agent Counter");
+
+        ClassPool classPool = ClassPool.getDefault();
+        CtClass objCls = classPool.getCtClass("java.lang.Object");
+        CtConstructor constructor = objCls.getConstructors()[0];
+        try {
+            constructor.insertBefore("System.out.println(\"INSERTED: Allocating Object\");");
+        } catch (CannotCompileException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
         instrumentation.addTransformer(new ClassTransformer());
     }
 
@@ -48,17 +58,15 @@ public class TransactionProcessorAgent {
                 });
                 // 4. Measure a time needed to complete each method in all classes defined in package nsu.fit.javaperf
                 if (currentClass.getPackageName().startsWith("nsu.fit.javaperf")){
-                    CtField f = new CtField(CtClass.longType, "startTime", currentClass);
-                    currentClass.addField(f);
-
                     CtMethod[] methods = currentClass.getDeclaredMethods();
                     Arrays.stream(methods).forEach(method -> {
                         if ((method.getMethodInfo().getAccessFlags() & AccessFlag.STATIC) == 0){ // If method not static
                             try {
-                                method.insertBefore("this.startTime = System.currentTimeMillis();\n");
+                                method.addLocalVariable("startTime", CtClass.longType);
+                                method.insertBefore("startTime = System.currentTimeMillis();\n");
                                 method.insertAfter("""
                                     long finish = System.currentTimeMillis();
-                                    long timeElapsed = finish - this.startTime;
+                                    long timeElapsed = finish - startTime;
                                     System.out.println("INSERTED: Elapsed Time: " + timeElapsed + "ms");""");
                             } catch (CannotCompileException e) {
                                 e.printStackTrace();
@@ -74,5 +82,35 @@ public class TransactionProcessorAgent {
             }
         }
     }
+
+    /*public static class ClassObjectTransformer implements ClassFileTransformer {
+
+        @Override
+        public byte[] transform(ClassLoader loader,
+                                String className,
+                                Class<?> classBeingRedefined,
+                                ProtectionDomain protectionDomain,
+                                byte[] classfileBuffer) {
+
+            ClassPool classPool = ClassPool.getDefault();
+            CtClass currentClass;
+            try {
+                // 3. Record all allocations
+                currentClass = classPool.makeClass(new ByteArrayInputStream(classfileBuffer));
+                CtConstructor[] constrs = currentClass.getConstructors();
+                Arrays.stream(constrs).forEach(constructor -> {
+                    try {
+                        constructor.insertBefore("System.out.println(\"INSERTED: Allocating " + className + "\");");
+                    } catch (CannotCompileException e) {
+                        e.printStackTrace();
+                        throw new RuntimeException(e);
+                    }
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }*/
+
 
 }

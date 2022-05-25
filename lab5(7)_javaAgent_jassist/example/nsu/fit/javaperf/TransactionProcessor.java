@@ -11,9 +11,23 @@ public class TransactionProcessor {
 
     public static void main(String[] args) throws Exception{
         TransactionProcessor tp = new TransactionProcessor();
+        TetsClass t = new TetsClass();
         int tx = 0;
         tp.processTransaction(++tx);
         tp.processTransaction(++tx);
         tp.processTransaction(++tx);
+    }
+
+    public static class TetsClass {
+        public int i;
+
+        TetsClass() {
+            this(1);
+            System.out.println("Basic Constructor end");
+        }
+        TetsClass(int i){
+            this.i = i;
+            System.out.println("Complex Constructor end");
+        }
     }
 }

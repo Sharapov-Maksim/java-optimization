@@ -1,0 +1,11 @@
+dontinline,*.*_all_jmhStub
+dontinline,*.*_avgt_jmhStub
+dontinline,*.*_sample_jmhStub
+dontinline,*.*_ss_jmhStub
+dontinline,*.*_thrpt_jmhStub
+inline,org/sample/MyBenchmark.isIntegerDigitsFalse
+inline,org/sample/MyBenchmark.isIntegerDigitsTrue
+inline,org/sample/MyBenchmark.isIntegerParseFalse
+inline,org/sample/MyBenchmark.isIntegerParseTrue
+inline,org/sample/MyBenchmark.isIntegerRegexpFalse
+inline,org/sample/MyBenchmark.isIntegerRegexpTrue

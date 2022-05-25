@@ -1,0 +1,6 @@
+JMH S 22 org.sample.MyBenchmark S 65 org.sample.jmh_generated.MyBenchmark_isIntegerDigitsFalse_jmhTest S 20 isIntegerDigitsFalse S 11 AverageTime E A 1 1 1 E I 1 5 T 3 1 s E I 1 1 T 3 1 s E I 1 5 E E E E E E U 11 NANOSECONDS E E 
+JMH S 22 org.sample.MyBenchmark S 64 org.sample.jmh_generated.MyBenchmark_isIntegerDigitsTrue_jmhTest S 19 isIntegerDigitsTrue S 11 AverageTime E A 1 1 1 E I 1 5 T 3 1 s E I 1 1 T 3 1 s E I 1 5 E E E E E E U 11 NANOSECONDS E E 
+JMH S 22 org.sample.MyBenchmark S 64 org.sample.jmh_generated.MyBenchmark_isIntegerParseFalse_jmhTest S 19 isIntegerParseFalse S 11 AverageTime E A 1 1 1 E I 1 5 T 3 1 s E I 1 1 T 3 1 s E I 1 5 E E E E E E U 11 NANOSECONDS E E 
+JMH S 22 org.sample.MyBenchmark S 63 org.sample.jmh_generated.MyBenchmark_isIntegerParseTrue_jmhTest S 18 isIntegerParseTrue S 11 AverageTime E A 1 1 1 E I 1 5 T 3 1 s E I 1 1 T 3 1 s E I 1 5 E E E E E E U 11 NANOSECONDS E E 
+JMH S 22 org.sample.MyBenchmark S 65 org.sample.jmh_generated.MyBenchmark_isIntegerRegexpFalse_jmhTest S 20 isIntegerRegexpFalse S 11 AverageTime E A 1 1 1 E I 1 5 T 3 1 s E I 1 1 T 3 1 s E I 1 5 E E E E E E U 11 NANOSECONDS E E 
+JMH S 22 org.sample.MyBenchmark S 64 org.sample.jmh_generated.MyBenchmark_isIntegerRegexpTrue_jmhTest S 19 isIntegerRegexpTrue S 11 AverageTime E A 1 1 1 E I 1 5 T 3 1 s E I 1 1 T 3 1 s E I 1 5 E E E E E E U 11 NANOSECONDS E E 
